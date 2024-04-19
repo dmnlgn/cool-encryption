@@ -1,6 +1,6 @@
-import React, { useState, type ChangeEvent } from "react";
+import React, { useEffect, useState, type ChangeEvent } from "react";
 import { englishAlphabet, polishAlphabet } from "../../dictionary/alphabet";
-import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { schema } from "./formSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import classNames from "classnames";
@@ -62,7 +62,16 @@ const CaesarCipherPage = () => {
         );
         const K = data.caesarKey;
 
-        const currentLetterIndex = (N + K) % currentAlphabet.length;
+        let currentLetterIndex = -1;
+        if (caesarMode === "encrypt") {
+          currentLetterIndex = (N + K) % currentAlphabet.length;
+        } else {
+          currentLetterIndex = (N - K) % currentAlphabet.length;
+          if (currentLetterIndex < 0) {
+            currentLetterIndex = currentAlphabet.length + currentLetterIndex;
+          }
+        }
+
         const currentLetter = currentAlphabet[currentLetterIndex];
 
         let parseCurrentLetter = currentLetter;
@@ -78,15 +87,33 @@ const CaesarCipherPage = () => {
       setCaesarResult(encryptedValue);
 
       const cryptoAlphabetArray = [];
-      for (let i = 0; i < currentAlphabet.length; i++) {
-        let N = i;
-        const K = data.caesarKey;
+      if (caesarMode === "encrypt") {
+        for (let i = 0; i < currentAlphabet.length; i++) {
+          let N = i;
+          const K = data.caesarKey;
 
-        const currentLetterIndex = (N + K) % currentAlphabet.length;
-        const currentLetter = currentAlphabet[currentLetterIndex];
+          const currentLetterIndex = (N + K) % currentAlphabet.length;
+          const currentLetter = currentAlphabet[currentLetterIndex];
 
-        cryptoAlphabetArray.push(currentLetter);
+          cryptoAlphabetArray.push(currentLetter);
+        }
+      } else {
+        for (let i = 0; i < currentAlphabet.length; i++) {
+          let N = i;
+          const K = data.caesarKey;
+
+          let currentLetterIndex = (N - K) % currentAlphabet.length;
+
+          if (currentLetterIndex < 0) {
+            currentLetterIndex = currentAlphabet.length + currentLetterIndex;
+          }
+
+          const currentLetter = currentAlphabet[currentLetterIndex];
+
+          cryptoAlphabetArray.push(currentLetter);
+        }
       }
+
       setCryptoAlphabet(cryptoAlphabetArray);
     }
   };
@@ -141,7 +168,7 @@ const CaesarCipherPage = () => {
       return (
         <div className="cool-cipher-caesar-form cool-form cool-cipher-caesar-result">
           <div className="cool-form-group">
-            <label className="cool-form-label">Zaszyfrowana wiadomość:</label>
+            <label className="cool-form-label">Wynik:</label>
             <input value={result} />
           </div>
         </div>
@@ -160,6 +187,40 @@ const CaesarCipherPage = () => {
 
   const renderResultAlphabet = () => {
     if (!!caesarResult.length && !!cryptoAlphabet.length) {
+      if (caesarMode === "decrypt") {
+        return (
+          <div className="cool-cipher-caesar-form cool-form cool-cipher-caesar-result">
+            <div className="cool-form-group">
+              <label className="cool-form-label">
+                Alfabet przed rozszyfrowaniem:
+              </label>
+              <div className="cool-cipher-caesar-alphabet">
+                {cryptoAlphabet.map((el, index) => {
+                  return (
+                    <div
+                      className="cool-cipher-caesar-alphabet-element"
+                      key={index}
+                    >
+                      <div>{el}</div>
+                      <div className="cool-cipher-caesar-alphabet-element-index">
+                        {index + 1}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="cool-form-group">
+              <label className="cool-form-label">
+                Alfabet po rozszyfrowaniu:
+              </label>
+              {renderAlphabet()}
+            </div>
+          </div>
+        );
+      }
+
       return (
         <div className="cool-cipher-caesar-form cool-form cool-cipher-caesar-result">
           <div className="cool-form-group">
@@ -198,8 +259,9 @@ const CaesarCipherPage = () => {
     }
   };
 
-  console.log("errors", errors);
-  console.log("cryptoAlphabetArray", cryptoAlphabet);
+  useEffect(() => {
+    setCryptoAlphabet([]);
+  }, [caesarMode]);
 
   return (
     <div className="cool-cipher-caesar">
