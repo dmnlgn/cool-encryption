@@ -1,9 +1,11 @@
 import React, { useEffect, useState, type ChangeEvent } from "react";
-import { englishAlphabet, polishAlphabet } from "../../dictionary/alphabet";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { schema } from "./formSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import classNames from "classnames";
+import { schema } from "./formSchema";
+
+import { englishAlphabet, polishAlphabet } from "../../dictionary/alphabet";
+import { dictionary } from "../../dictionary/dictionary";
 
 type TAlphabetType = "alpha-pol" | "alpha-eng";
 
@@ -168,8 +170,10 @@ const CaesarCipherPage = () => {
       return (
         <div className="cool-cipher-caesar-form cool-form cool-cipher-caesar-result">
           <div className="cool-form-group">
-            <label className="cool-form-label">Wynik:</label>
-            <input value={result} />
+            <label className="cool-form-label">
+              {dictionary.caesarCipher.results}
+            </label>
+            <input readOnly={true} value={result} />
           </div>
         </div>
       );
@@ -179,11 +183,13 @@ const CaesarCipherPage = () => {
 
   const caesarLabelText =
     caesarMode === "encrypt"
-      ? "Wiadomość do zaszyfrowania:"
-      : "Wiadomość do deszyfrowania:";
+      ? dictionary.caesarCipher.messageToEncode
+      : dictionary.caesarCipher.messageToDecode;
 
   const caesaButtonSubmitText =
-    caesarMode === "encrypt" ? "Zaszyfruj wiadomość" : "Deszyfruj wiadomość";
+    caesarMode === "encrypt"
+      ? dictionary.caesarCipher.encodeMessage
+      : dictionary.caesarCipher.decodeMessage;
 
   const renderResultAlphabet = () => {
     if (!!caesarResult.length && !!cryptoAlphabet.length) {
@@ -192,7 +198,7 @@ const CaesarCipherPage = () => {
           <div className="cool-cipher-caesar-form cool-form cool-cipher-caesar-result">
             <div className="cool-form-group">
               <label className="cool-form-label">
-                Alfabet przed rozszyfrowaniem:
+                {dictionary.caesarCipher.alphabetBeforeDecode}
               </label>
               <div className="cool-cipher-caesar-alphabet">
                 {cryptoAlphabet.map((el, index) => {
@@ -210,10 +216,9 @@ const CaesarCipherPage = () => {
                 })}
               </div>
             </div>
-
             <div className="cool-form-group">
               <label className="cool-form-label">
-                Alfabet po rozszyfrowaniu:
+                {dictionary.caesarCipher.alphabetAfterDecode}
               </label>
               {renderAlphabet()}
             </div>
@@ -225,14 +230,14 @@ const CaesarCipherPage = () => {
         <div className="cool-cipher-caesar-form cool-form cool-cipher-caesar-result">
           <div className="cool-form-group">
             <label className="cool-form-label">
-              Alfabet przed szyfrowaniem:
+              {dictionary.caesarCipher.alphabetBeforeEncode}
             </label>
             {renderAlphabet()}
           </div>
           {!!cryptoAlphabet.length && (
             <div className="cool-form-group">
               <label className="cool-form-label">
-                Alfabet po zaszyfrowaniu:
+                {dictionary.caesarCipher.alphabetAfterEncode}
               </label>
 
               <div className="cool-cipher-caesar-alphabet">
@@ -275,7 +280,7 @@ const CaesarCipherPage = () => {
                 })}
                 onClick={() => setCaesarMode("encrypt")}
               >
-                Szyfrowanie
+                {dictionary.caesarCipher.modeEncode}
               </button>
               <button
                 className={classNames("cool-btn right", {
@@ -283,30 +288,45 @@ const CaesarCipherPage = () => {
                 })}
                 onClick={() => setCaesarMode("decrypt")}
               >
-                Deszyfrowanie
+                {dictionary.caesarCipher.modeDecode}
               </button>
             </div>
-            <h3 className="cool-cipher-caesar-form-title">Dane:</h3>
+            <h3 className="cool-cipher-caesar-form-title">
+              {dictionary.caesarCipher.formTitle}
+            </h3>
             <form
               className="cool-cipher-caesar-form cool-form"
               onSubmit={handleSubmit(onSubmit)}
             >
               <div className="cool-form-group">
                 <label className="cool-form-label">
-                  Wskaż z którego słownika chcesz skorzystać:
+                  {dictionary.caesarCipher.form.alphabetTypeLabel}
                 </label>
                 <select
-                  value={alphabet}
                   {...register("alphabetType")}
                   onChange={handleChangeAlphabet}
+                  value={alphabet}
                 >
                   <option value="alpha-pol">Alfabet polski</option>
                   <option value="alpha-eng">Alfabet angielski</option>
                 </select>
               </div>
               <div className="cool-form-group">
-                <label className="cool-form-label">Podaj klucz:</label>
-                <input type="number" {...register("caesarKey")} />
+                <label className="cool-form-label">
+                  {dictionary.caesarCipher.form.caesarKeyLabel}
+                </label>
+                <input
+                  type="number"
+                  {...register("caesarKey")}
+                  className={classNames({
+                    "is-invalid": errors.caesarKey,
+                  })}
+                />
+                {errors.caesarKey && (
+                  <p className="input-error-no-margin">
+                    {errors.caesarKey.message}
+                  </p>
+                )}
               </div>
               <div className="cool-form-group">
                 <label className="cool-form-label">{caesarLabelText}</label>

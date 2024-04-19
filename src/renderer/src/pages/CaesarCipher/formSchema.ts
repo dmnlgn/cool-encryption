@@ -37,7 +37,3 @@ export const schema = yup
       }),
   })
   .required();
-
-// alphabetType: string;
-// caesarKey: string;
-// caesarTransmition: string;
