@@ -8,10 +8,12 @@ export const schema = yup
       .required(dictionary.caesarCipher.form.alphabetTypeError),
     caesarKey: yup
       .number()
-      .typeError(dictionary.caesarCipher.form.caesarKeyErrorNumber)
-      .positive(dictionary.caesarCipher.form.caesarKeyErrorNumberPositive)
       .integer()
-      .required(dictionary.caesarCipher.form.caesarKeyError),
+      .required(dictionary.caesarCipher.form.caesarKeyError)
+      .typeError(
+        (props) => !props.value && dictionary.caesarCipher.form.caesarKeyError
+      )
+      .positive(dictionary.caesarCipher.form.caesarKeyErrorNumberPositive),
     caesarTransmition: yup
       .string()
       .required(dictionary.caesarCipher.form.caesarTransmitionError)
@@ -20,11 +22,11 @@ export const schema = yup
         then: () =>
           yup
             .string()
+            .required(dictionary.caesarCipher.form.caesarTransmitionError)
             .matches(
               /^[a-zA-Z\s]*$/,
               dictionary.caesarCipher.form.caesarTransmitionErrorWrong
-            )
-            .required(dictionary.caesarCipher.form.caesarTransmitionError),
+            ),
         otherwise: () =>
           yup
             .string()

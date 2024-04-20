@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import "./style/index.scss";
 import { route } from "./routes/routes";
 import CaesarCipher from "./pages/CaesarCipher";
+import AffineCipher from "./pages/AffineCipher";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: route.caesarCipher,
     element: <CaesarCipher />,
+  },
+  {
+    path: route.affineCipher,
+    element: <AffineCipher />,
   },
 ]);
 

@@ -10,7 +10,7 @@ const Sidebar = () => {
           <div className="cool-sidebar-list">
             <div className="cool-sidebar-list-element">
               <NavLink to={route.home}>
-                <div className="cool-sidebar-list-text">STRONA GŁÓWNA</div>
+                <span className="cool-sidebar-list-text">STRONA GŁÓWNA</span>
               </NavLink>
             </div>
           </div>
@@ -20,7 +20,14 @@ const Sidebar = () => {
           <div className="cool-sidebar-list">
             <div className="cool-sidebar-list-element">
               <NavLink to={route.caesarCipher}>
-                <div className="cool-sidebar-list-text">SZYFR CEZARA</div>
+                <span className="cool-sidebar-list-text">SZYFR CEZARA</span>
+              </NavLink>
+            </div>
+          </div>
+          <div className="cool-sidebar-list">
+            <div className="cool-sidebar-list-element">
+              <NavLink to={route.affineCipher}>
+                <span className="cool-sidebar-list-text">SZYFR AFINICZNY</span>
               </NavLink>
             </div>
           </div>

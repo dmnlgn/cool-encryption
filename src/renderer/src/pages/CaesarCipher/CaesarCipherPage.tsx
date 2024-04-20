@@ -86,6 +86,7 @@ const CaesarCipherPage = () => {
 
         encryptedValue.push(parseCurrentLetter);
       }
+
       setCaesarResult(encryptedValue);
 
       const cryptoAlphabetArray = [];
@@ -239,7 +240,6 @@ const CaesarCipherPage = () => {
               <label className="cool-form-label">
                 {dictionary.caesarCipher.alphabetAfterEncode}
               </label>
-
               <div className="cool-cipher-caesar-alphabet">
                 {cryptoAlphabet.map((el, index) => {
                   return (
@@ -330,7 +330,18 @@ const CaesarCipherPage = () => {
               </div>
               <div className="cool-form-group">
                 <label className="cool-form-label">{caesarLabelText}</label>
-                <input type="text" {...register("caesarTransmition")} />
+                <input
+                  type="text"
+                  {...register("caesarTransmition")}
+                  className={classNames({
+                    "is-invalid": errors.caesarTransmition,
+                  })}
+                />
+                {errors.caesarTransmition && (
+                  <p className="input-error-no-margin">
+                    {errors.caesarTransmition.message}
+                  </p>
+                )}
               </div>
               <button type="submit" className="cool-btn">
                 {caesaButtonSubmitText}
