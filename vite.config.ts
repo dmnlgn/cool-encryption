@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     eslintPlugin({
       emitWarning: true,
-      exclude: [/virtual:/, /node_modules/, /sb-preview/],
+      // exclude: [/virtual:/, /node_modules/],
     }),
   ],
   resolve: {
