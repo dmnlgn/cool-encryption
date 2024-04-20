@@ -27,6 +27,7 @@ const CaesarCipherPage = () => {
     register,
     handleSubmit,
     formState: { errors },
+    resetField,
   } = useForm<ICaesarFormState>({
     resolver: yupResolver<ICaesarFormState>(schema),
   });
@@ -40,6 +41,25 @@ const CaesarCipherPage = () => {
     const targetElement = (event.target as HTMLSelectElement)
       ?.value as TAlphabetType;
     setAlphabet(targetElement);
+    setCryptoAlphabet([]);
+    setCaesarResult([]);
+    resetField("caesarKey");
+    resetField("caesarTransmition");
+  };
+
+  const handleChangeAffineMode = (type: TCaesarMode) => {
+    switch (type) {
+      case "encrypt": {
+        setCaesarMode("encrypt");
+        break;
+      }
+      case "decrypt": {
+        setCaesarMode("decrypt");
+        break;
+      }
+    }
+    setCryptoAlphabet([]);
+    setCaesarResult([]);
   };
 
   const calculateCaesarCipher = (data: ICaesarFormState) => {
@@ -90,31 +110,14 @@ const CaesarCipherPage = () => {
       setCaesarResult(encryptedValue);
 
       const cryptoAlphabetArray = [];
-      if (caesarMode === "encrypt") {
-        for (let i = 0; i < currentAlphabet.length; i++) {
-          let N = i;
-          const K = data.caesarKey;
+      for (let i = 0; i < currentAlphabet.length; i++) {
+        let N = i;
+        const K = data.caesarKey;
 
-          const currentLetterIndex = (N + K) % currentAlphabet.length;
-          const currentLetter = currentAlphabet[currentLetterIndex];
+        const currentLetterIndex = (N + K) % currentAlphabet.length;
+        const currentLetter = currentAlphabet[currentLetterIndex];
 
-          cryptoAlphabetArray.push(currentLetter);
-        }
-      } else {
-        for (let i = 0; i < currentAlphabet.length; i++) {
-          let N = i;
-          const K = data.caesarKey;
-
-          let currentLetterIndex = (N - K) % currentAlphabet.length;
-
-          if (currentLetterIndex < 0) {
-            currentLetterIndex = currentAlphabet.length + currentLetterIndex;
-          }
-
-          const currentLetter = currentAlphabet[currentLetterIndex];
-
-          cryptoAlphabetArray.push(currentLetter);
-        }
+        cryptoAlphabetArray.push(currentLetter);
       }
 
       setCryptoAlphabet(cryptoAlphabetArray);
@@ -278,7 +281,7 @@ const CaesarCipherPage = () => {
                 className={classNames("cool-btn left", {
                   active: caesarMode === "encrypt",
                 })}
-                onClick={() => setCaesarMode("encrypt")}
+                onClick={() => handleChangeAffineMode("encrypt")}
               >
                 {dictionary.caesarCipher.modeEncode}
               </button>
@@ -286,7 +289,7 @@ const CaesarCipherPage = () => {
                 className={classNames("cool-btn right", {
                   active: caesarMode === "decrypt",
                 })}
-                onClick={() => setCaesarMode("decrypt")}
+                onClick={() => handleChangeAffineMode("decrypt")}
               >
                 {dictionary.caesarCipher.modeDecode}
               </button>

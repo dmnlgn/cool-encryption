@@ -1,4 +1,4 @@
-import React, { useEffect, useState, type ChangeEvent } from "react";
+import React, { useState, type ChangeEvent } from "react";
 import classNames from "classnames";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -49,9 +49,6 @@ const calculateGreatestCommonDivisor = (alphabet: TAlphabetType) => {
 const AffineCipherPage = () => {
   const [alphabet, setAlphabet] = useState<TAlphabetType>("alpha-eng");
   const [affineMode, setAffineMode] = useState<TAffineMode>("encrypt");
-  const [affineFirstKey, setAffineFirstKey] = useState<number | undefined>(
-    calculateGreatestCommonDivisor(alphabet)[0]
-  );
   const [affineResult, setAffineResult] = useState<string[] | []>([]);
   const [cryptoAlphabet, setCryptoAlphabet] = useState<string[] | []>([]);
 
@@ -243,17 +240,6 @@ const AffineCipherPage = () => {
     resetField("affineValue");
   };
 
-  const handleChangeAffineFirstKey = (
-    event: ChangeEvent<HTMLSelectElement>
-  ) => {
-    const targetElement = (event.target as HTMLSelectElement)?.value as string;
-    setAffineFirstKey(Number(targetElement));
-  };
-
-  useEffect(() => {
-    setAffineFirstKey(affineCipherFirstKeyOptions[0]);
-  }, [affineMode]);
-
   const renderResult = () => {
     if (!!affineResult.length) {
       const affineEncodeValue = affineResult.join("") ?? "";
@@ -374,8 +360,6 @@ const AffineCipherPage = () => {
     }
   };
 
-  console.log("cryptoAlphabet", cryptoAlphabet);
-
   const affineButtonSubmitText =
     affineMode === "encrypt"
       ? dictionary.affineCipher.encodeMessage
@@ -430,10 +414,7 @@ const AffineCipherPage = () => {
                 <label className="cool-form-label">
                   {dictionary.affineCipher.form.affineFirstKeyLabel}
                 </label>
-                <select
-                  {...register("affineFirstKey")}
-                  onChange={handleChangeAffineFirstKey}
-                >
+                <select {...register("affineFirstKey")}>
                   {affineCipherFirstKeyOptions.map((option, index) => (
                     <option key={index} value={option}>
                       {option}

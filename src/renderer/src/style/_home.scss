@@ -1,0 +1,22 @@
+.cool-home {
+  display: block;
+
+  .cool-home-container {
+    display: grid;
+  }
+
+  .cool-home-title {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    padding-top: 18px;
+    color: #c1ff0b;
+  }
+
+  .cool-home-desc {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    padding-top: 5px;
+  }
+}
