@@ -72,14 +72,14 @@ const CaesarCipherPage = () => {
     const splitTranmitedValue = data.caesarTransmition.split("");
     const encryptedValue = [];
 
-    if (!!splitTranmitedValue.length) {
+    if (splitTranmitedValue.length) {
       for (let i = 0; i < splitTranmitedValue.length; i++) {
         if (!splitTranmitedValue[i].trim()) {
           encryptedValue.push(" ");
           continue;
         }
 
-        let N = currentAlphabet.findIndex(
+        const N = currentAlphabet.findIndex(
           (el) => el.toUpperCase() === splitTranmitedValue[i].toUpperCase()
         );
         const K = data.caesarKey;
@@ -111,7 +111,7 @@ const CaesarCipherPage = () => {
 
       const cryptoAlphabetArray = [];
       for (let i = 0; i < currentAlphabet.length; i++) {
-        let N = i;
+        const N = i;
         const K = data.caesarKey;
 
         const currentLetterIndex = (N + K) % currentAlphabet.length;
@@ -168,7 +168,7 @@ const CaesarCipherPage = () => {
   };
 
   const renderResult = () => {
-    if (!!caesarResult.length) {
+    if (caesarResult.length) {
       const result = caesarResult.join("") ?? "";
 
       return (

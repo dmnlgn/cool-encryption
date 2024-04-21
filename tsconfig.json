@@ -22,8 +22,16 @@
     "moduleResolution": "node",
     "jsx": "preserve",
     "allowSyntheticDefaultImports": true,
-    "allowJs": true
+    "allowJs": true,
+
+    "noImplicitAny": true
   },
-  "include": ["src", "**/*.ts", "**/*.tsx", "vite.config.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "./src",
+    "**/*.ts",
+    "**/*.tsx",
+    "vite.config.ts",
+    "./src/**/*.ts"
+    // "eslint.config.js"
+  ]
 }

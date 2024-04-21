@@ -1,4 +1,5 @@
 import React, { useState, type ChangeEvent } from "react";
+
 import classNames from "classnames";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -241,7 +242,7 @@ const AffineCipherPage = () => {
   };
 
   const renderResult = () => {
-    if (!!affineResult.length) {
+    if (affineResult.length) {
       const affineEncodeValue = affineResult.join("") ?? "";
       return (
         <div className="cool-cipher-affine-form cool-form cool-cipher-affine-result">

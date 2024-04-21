@@ -1,10 +1,16 @@
 import { defineConfig } from "electron-vite";
-import react from "@vitejs/plugin-react";
+
+import eslint from "vite-plugin-eslint2";
 
 export default defineConfig({
   main: {},
   preload: {},
   renderer: {
-    plugins: [react()],
+    plugins: [eslint()],
+    resolve: {
+      alias: {
+        "@": "/src", // Set the alias to the root of your "src" directory
+      },
+    },
   },
 });

@@ -1,8 +1,7 @@
-"use strict";
-const electron = require("electron");
+import { app, BrowserWindow } from "electron";
 let mainWindow;
 function createWindow() {
-  mainWindow = new electron.BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 820,
     height: 600,
     minWidth: 820,
@@ -12,15 +11,15 @@ function createWindow() {
   mainWindow.loadURL("http://localhost:5173");
   mainWindow.on("closed", () => mainWindow = null);
 }
-electron.app.whenReady().then(() => {
+app.whenReady().then(() => {
   createWindow();
 });
-electron.app.on("window-all-closed", () => {
+app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
-    electron.app.quit();
+    app.quit();
   }
 });
-electron.app.on("activate", () => {
+app.on("activate", () => {
   if (mainWindow == null) {
     createWindow();
   }
