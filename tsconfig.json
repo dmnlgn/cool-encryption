@@ -24,7 +24,21 @@
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
 
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "baseUrl": "./src/renderer/src",
+    "paths": {
+      "@/*": ["*"]
+    }
+    // "baseUrl": ".",
+    // "paths": {
+    //   "@/*": ["./src/renderer/src"]
+    // }
   },
-  "include": ["./src", "**/*.ts", "**/*.tsx", "vite.config.ts", "./src/**/*.ts"]
+  "include": [
+    "./src",
+    "**/*.ts",
+    "**/*.tsx",
+    "electron.vite.config.ts",
+    "./src/**/*.ts"
+  ]
 }

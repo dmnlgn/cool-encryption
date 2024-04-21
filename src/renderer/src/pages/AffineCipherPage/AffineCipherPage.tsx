@@ -3,10 +3,10 @@ import React, { useState, type ChangeEvent } from "react";
 import classNames from "classnames";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { schema } from "./formSchema";
+import { schema } from "@/pages/AffineCipherPage/formSchema";
 
-import { dictionary } from "../../dictionary/dictionary";
-import { englishAlphabet, polishAlphabet } from "../../dictionary/alphabet";
+import { dictionary } from "@/dictionary/dictionary";
+import { englishAlphabet, polishAlphabet } from "@/dictionary/alphabet";
 
 type TAlphabetType = "alpha-pol" | "alpha-eng";
 

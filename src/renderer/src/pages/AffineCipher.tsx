@@ -1,9 +1,9 @@
 import React from "react";
 
-import Layout from "../components/layout/Layout";
-import AffineCipherPage from "./AffineCipherPage/AffineCipherPage";
+import Layout from "@/components/layout/Layout";
+import AffineCipherPage from "@/pages/AffineCipherPage/AffineCipherPage";
 
-import { dictionary } from "../dictionary/dictionary";
+import { dictionary } from "@/dictionary/dictionary";
 
 const AffineCipher = () => {
   return (

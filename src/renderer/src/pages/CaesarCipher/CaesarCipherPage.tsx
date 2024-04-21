@@ -2,10 +2,10 @@ import React, { useEffect, useState, type ChangeEvent } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import classNames from "classnames";
-import { schema } from "./formSchema";
+import { schema } from "@/pages/CaesarCipher/formSchema";
 
-import { englishAlphabet, polishAlphabet } from "../../dictionary/alphabet";
-import { dictionary } from "../../dictionary/dictionary";
+import { englishAlphabet, polishAlphabet } from "@/dictionary/alphabet";
+import { dictionary } from "@/dictionary/dictionary";
 
 type TAlphabetType = "alpha-pol" | "alpha-eng";
 

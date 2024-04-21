@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { dictionary } from "../../dictionary/dictionary";
+import { dictionary } from "@/dictionary/dictionary";
 
 export const schema = yup
   .object({

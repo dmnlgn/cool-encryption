@@ -1,7 +1,7 @@
 import React from "react";
-import Layout from "../components/layout/Layout";
-import CaesarCipherPage from "./CaesarCipher/CaesarCipherPage";
-import { dictionary } from "../dictionary/dictionary";
+import Layout from "@/components/layout/Layout";
+import CaesarCipherPage from "@/pages/CaesarCipher/CaesarCipherPage";
+import { dictionary } from "@/dictionary/dictionary";
 
 const CaesarCipher = () => {
   return (

@@ -1,5 +1,5 @@
 import React, { type FC, type ReactNode } from "react";
-import Sidebar from "./Sidebar/Sidebar";
+import Sidebar from "@/components/layout/Sidebar/Sidebar";
 
 interface ILayout {
   children: ReactNode;
