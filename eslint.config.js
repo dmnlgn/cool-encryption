@@ -1,6 +1,6 @@
 import eslint from "@eslint/js";
-import tseslint from "typescript-eslint";
 import prettier from "prettier";
+import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   {
@@ -22,13 +22,12 @@ export default tseslint.config(
     files: ["**/*.ts", "**/*.tsx"],
   },
   eslint.configs.recommended,
-  // ...tseslint.configs.recommended,
   {
     languageOptions: {
       globals: { browser: true, es2020: true },
       parser: tseslint.parser,
       parserOptions: {
-        // tsconfigRootDir: import.meta.dirname,
+        // tsconfigRootDir: __dirname,
         // project: "./tsconfig.json",
       },
     },
@@ -38,6 +37,14 @@ export default tseslint.config(
       "no-console": "warn",
       "no-extra-boolean-cast": "off",
       "prefer-const": "error",
+    },
+    settings: {
+      "import/resolver": {
+        alias: {
+          extension: [".ts", ".tsx"],
+          map: ["@", "./src/renderer"],
+        },
+      },
     },
   }
 );

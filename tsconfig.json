@@ -26,12 +26,5 @@
 
     "noImplicitAny": true
   },
-  "include": [
-    "./src",
-    "**/*.ts",
-    "**/*.tsx",
-    "vite.config.ts",
-    "./src/**/*.ts"
-    // "eslint.config.js"
-  ]
+  "include": ["./src", "**/*.ts", "**/*.tsx", "vite.config.ts", "./src/**/*.ts"]
 }
