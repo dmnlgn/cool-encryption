@@ -49,19 +49,5 @@
     "vite": "^5.2.0",
     "vite-plugin-eslint2": "^4.4.0",
     "yarn": "^1.22.22"
-  },
-  "build": {
-    "appId": "com.cool_encryption.app",
-    "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64",
-            "ia32"
-          ]
-        }
-      ]
-    }
   }
 }

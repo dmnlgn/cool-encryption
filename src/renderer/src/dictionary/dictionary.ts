@@ -1,4 +1,10 @@
 export const dictionary = {
+  sidebarMenu: {
+    home: "STRONA GŁÓWNA",
+    ciphers: "SZYFRY:",
+    caesarCipher: "SZYFR CEZARA:",
+    affineCipher: "SZYFR CEZARA:",
+  },
   caesarCipher: {
     title: "Szyfr Cezara",
     form: {

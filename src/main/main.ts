@@ -7,9 +7,9 @@ let mainWindow: BrowserWindow | null;
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 820,
-    height: 600,
+    height: 650,
     minWidth: 820,
-    minHeight: 600,
+    minHeight: 650,
   });
   mainWindow.setMenuBarVisibility(false);
 

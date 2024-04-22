@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { route } from "@/routes/routes";
+import { dictionary } from "@/dictionary/dictionary";
 
 const Sidebar = () => {
   return (
@@ -10,24 +11,30 @@ const Sidebar = () => {
           <div className="cool-sidebar-list">
             <div className="cool-sidebar-list-element">
               <NavLink to={route.home}>
-                <span className="cool-sidebar-list-text">STRONA GŁÓWNA</span>
+                <span className="cool-sidebar-list-text">
+                  {dictionary.sidebarMenu.home}
+                </span>
               </NavLink>
             </div>
           </div>
           <div className="cool-sidebar-head">
-            <h3>SZYFRY:</h3>
+            <h3>{dictionary.sidebarMenu.ciphers}</h3>
           </div>
           <div className="cool-sidebar-list">
             <div className="cool-sidebar-list-element">
               <NavLink to={route.caesarCipher}>
-                <span className="cool-sidebar-list-text">SZYFR CEZARA</span>
+                <span className="cool-sidebar-list-text">
+                  {dictionary.sidebarMenu.caesarCipher}
+                </span>
               </NavLink>
             </div>
           </div>
           <div className="cool-sidebar-list">
             <div className="cool-sidebar-list-element">
               <NavLink to={route.affineCipher}>
-                <span className="cool-sidebar-list-text">SZYFR AFINICZNY</span>
+                <span className="cool-sidebar-list-text">
+                  {dictionary.sidebarMenu.affineCipher}
+                </span>
               </NavLink>
             </div>
           </div>

@@ -24,8 +24,8 @@ const router = [
 const AppRouter = () => {
   return (
     <Routes>
-      {router.map((route) => (
-        <Route path={route.path} element={route.element} />
+      {router.map((route, index) => (
+        <Route key={index} path={route.path} element={route.element} />
       ))}
     </Routes>
   );
