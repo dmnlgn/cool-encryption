@@ -1,0 +1,19 @@
+{
+  "appId": "com.cool-encryption.app",
+  "directories": {
+    "output": "dist"
+  },
+  "files": [
+    "out/**",
+    "!node_modules/**"
+  ],
+  "artifactName": "${productName}-${platform}_${arch}-v${buildVersion}.${ext}",
+  "dmg": {
+    "sign": false
+  },
+  "win": {
+    "target": [
+      "nsis"
+    ]
+  }
+}

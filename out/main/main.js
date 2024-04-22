@@ -1,4 +1,12 @@
 import { app, BrowserWindow } from "electron";
+import path from "path";
+import url from "url";
+import __cjs_url__ from "node:url";
+import __cjs_path__ from "node:path";
+import __cjs_mod__ from "node:module";
+const __filename = __cjs_url__.fileURLToPath(import.meta.url);
+const __dirname = __cjs_path__.dirname(__filename);
+const require2 = __cjs_mod__.createRequire(import.meta.url);
 let mainWindow;
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -8,11 +16,22 @@ function createWindow() {
     minHeight: 600
   });
   mainWindow.setMenuBarVisibility(false);
-  mainWindow.loadURL("http://localhost:5173");
+  const rendererHTMLPath = path.join(
+    __dirname,
+    "../../out/renderer/index.html"
+  );
+  console.log("rendererHTMLPath", rendererHTMLPath);
+  const loadURL = url.format({
+    pathname: rendererHTMLPath,
+    protocol: "file:",
+    slashes: true
+  });
+  mainWindow.loadURL(loadURL);
   mainWindow.on("closed", () => mainWindow = null);
 }
 app.whenReady().then(() => {
   createWindow();
+  mainWindow?.webContents.openDevTools();
 });
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
