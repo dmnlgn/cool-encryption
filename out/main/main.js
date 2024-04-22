@@ -20,7 +20,6 @@ function createWindow() {
     __dirname,
     "../../out/renderer/index.html"
   );
-  console.log("rendererHTMLPath", rendererHTMLPath);
   const loadURL = url.format({
     pathname: rendererHTMLPath,
     protocol: "file:",
@@ -31,7 +30,6 @@ function createWindow() {
 }
 app.whenReady().then(() => {
   createWindow();
-  mainWindow?.webContents.openDevTools();
 });
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
