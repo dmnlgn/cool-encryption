@@ -1,6 +1,6 @@
 import { app, BrowserWindow } from "electron";
 import path from "path";
-import "url";
+import url from "url";
 import __cjs_url__ from "node:url";
 import __cjs_path__ from "node:path";
 import __cjs_mod__ from "node:module";
@@ -16,11 +16,15 @@ function createWindow() {
     minHeight: 650
   });
   mainWindow.setMenuBarVisibility(false);
-  path.join(
+  const rendererHTMLPath = path.join(
     __dirname,
     "../../out/renderer/index.html"
   );
-  const loadURL = "http://localhost:5173";
+  const loadURL = url.format({
+    pathname: rendererHTMLPath,
+    protocol: "file:",
+    slashes: true
+  });
   mainWindow.loadURL(loadURL);
   mainWindow.on("closed", () => mainWindow = null);
 }
